@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-    <h1>sign up here
-    </h1>
+  <body>
+    <h1>sign up here</h1>
     <%- include('nav') %>
-</body>
-
+    <div class="signUpFormContainer">
+      <form action="/sign-up" method="POST" class="signUpForm">
+          <div class="inputContainer">
+            <label for="firstName">First Name:</label>
+            <input  type="text" name="firstName" id="firstName"/>
+            <%- include('formError', {errors: errors, selector: 'firstName'}) %>
+          </div>
+          <div class="inputContainer">
+            <label for="lastName">Last Name:</label
+            ><input type="text" name="lastName" id="lastName"/>
+            <%- include('formError', {errors: errors, selector: 'lastName'}) %>
+          </div>
+          <div class="inputContainer">
+            <label for="userName">Username:</label
+            ><input type="text" name="userName" id="userName" maxlength="20" />
+            <%- include('formError', {errors: errors, selector: 'userName'}) %>
+          </div>
+          <div class="inputContainer">
+            <label for="password">Password:</label
+            ><input type="text" name="password" id="password" />
+            <%- include('formError', {errors: errors, selector: 'password'}) %>
+          </div>
+          <div class="inputContainer">
+            <label for="confirmPassword">Confirm Password:</label
+            ><input type="text" name="confirmPassword" id="confirmPassword" />
+            <%- include('formError', {errors: errors, selector: 'confirmPassword'}) %>
+          </div>
+          <div class="inputContainer">
+            <label for="adminPassword">Admin Only:</label
+            ><input type="text" name="adminPassword" id="adminPassword" />
+            <%- include('formError', {errors: errors, selector: 'adminPassword'}) %>
+          </div>
+          <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </body>
 </html>

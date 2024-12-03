@@ -1,0 +1,14 @@
+<p class="error">
+    <% if (errors) {%>
+        
+        <% errors.forEach(function(error) { %>
+          
+          <%if (error.path == selector) { %>
+              
+              <li><%= error.msg %></li>
+          <%}%>
+          
+        <% }); %>
+      
+    <% } %>
+</p> 

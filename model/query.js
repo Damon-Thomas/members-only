@@ -19,10 +19,12 @@ async function getUserByID(id) {
 }
 
 async function createUser(first, last, username, password, member, admin) {
-    pool.query(`INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6)`, [first, last, username, password, member, admin])
-    console.log('all users', await pool.query('SELECT * FROM users;'))
-    return rows;
+    pool.query(`INSERT INTO users (firstname, lastname, username, password, member, admin) VALUES ($1, $2, $3, $4, $5, $6)`, [first, last, username, password, member, admin])
+    
+    
 }
+
+
 
 async function setMember(id) {
     console.log("user before change", await pool.query(`SELECT * FROM users WHERE id=${id};`))
