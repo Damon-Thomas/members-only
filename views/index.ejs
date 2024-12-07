@@ -6,7 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome</h1>
+    <h1>Home</h1>
     <%- include('nav') %> 
+    <% if (locals.user) {%>
+        <h1>WELCOME BACK <%=  user.firstname + ' ' + user.lastname  %></h1>
+        <a href="/log-out">LOG OUT</a>
+        <%}%>
+    
 </body>
 </html>

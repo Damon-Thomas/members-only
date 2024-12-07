@@ -19,7 +19,10 @@ async function getUserByID(id) {
 }
 
 async function createUser(first, last, username, password, member, admin) {
-    pool.query(`INSERT INTO users (firstname, lastname, username, password, member, admin) VALUES ($1, $2, $3, $4, $5, $6)`, [first, last, username, password, member, admin])
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+      }
+    pool.query(`INSERT INTO users (firstname, lastname, username, password, member, admin) VALUES ($1, $2, $3, $4, $5, $6)`, [capitalizeFirstLetter(first), capitalizeFirstLetter(last), username, password, member, admin])
     
     
 }

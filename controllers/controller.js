@@ -4,12 +4,22 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs")
 
 const getHome = asyncHandler(async (req, res) => {
-    console.log('pre',req.session.viewcount)
-    viewCounter(req)
-    console.log('post', req.session.viewcount)
-    console.log('full', req.session)
-    res.render('index')
     
+    res.render('index', {
+        user: req.user
+    }
+
+    )
+    
+})
+
+const logOut = asyncHandler(async (req, res) => {
+    req.logout((err) => {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect("/");
+      });
 })
 
 function viewCounter(req) {
@@ -75,5 +85,6 @@ module.exports ={
     getLogIn,
     getCreateMessage,
     getMembership,
-    postSignUp
+    postSignUp,
+    logOut,
 }
