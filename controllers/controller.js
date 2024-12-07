@@ -2,12 +2,11 @@ const asyncHandler = require("express-async-handler");
 const query = require("../model/query.js");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs")
+require('dotenv').config()
 
 const getHome = asyncHandler(async (req, res) => {
     
-    res.render('index', {
-        user: req.user
-    }
+    res.render('index'
 
     )
     
@@ -47,7 +46,8 @@ const getCreateMessage = asyncHandler(async (req, res) => {
 })
 
 const getMembership = asyncHandler(async (req, res) => {
-    res.render('beMember')
+    console.log('yep', req.user)
+    res.render('beMember', )
     
 })
 
@@ -79,6 +79,16 @@ const postSignUp = asyncHandler(async (req, res) => {
     
 })
 
+const setMembership = asyncHandler(async (req, res) => {
+    console.log('ya', req.user)
+    console.log(req.body.memberApp)
+    let guess = query.capitalizeFirstLetter(req.body.memberApp)
+    if (guess === process.env.RIDDLEANSWER) {
+    query.setMember(req.user.id)
+    res.render('index')}
+    
+})
+
 module.exports ={
     getHome,
     getSignUp,
@@ -87,4 +97,5 @@ module.exports ={
     getMembership,
     postSignUp,
     logOut,
+    setMembership
 }

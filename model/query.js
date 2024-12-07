@@ -18,10 +18,12 @@ async function getUserByID(id) {
     return rows;
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+  }
+
 async function createUser(first, last, username, password, member, admin) {
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
-      }
+    
     pool.query(`INSERT INTO users (firstname, lastname, username, password, member, admin) VALUES ($1, $2, $3, $4, $5, $6)`, [capitalizeFirstLetter(first), capitalizeFirstLetter(last), username, password, member, admin])
     
     
@@ -30,9 +32,9 @@ async function createUser(first, last, username, password, member, admin) {
 
 
 async function setMember(id) {
-    console.log("user before change", await pool.query(`SELECT * FROM users WHERE id=${id};`))
+    
     await pool.query(`UPDATE users SET member=true WHERE id=${id};`)
-    console.log("user after change", await pool.query(`SELECT * FROM users WHERE id=${id};`))
+    
 }
 
 
@@ -41,5 +43,6 @@ module.exports = {
     getMessagesWithUsers,
     getUserByID,
     createUser,
-    setMember
+    setMember,
+    capitalizeFirstLetter
 }

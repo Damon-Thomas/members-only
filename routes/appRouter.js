@@ -2,13 +2,14 @@ const { Router } = require("express");
 const bodyParser = require('body-parser');
 const appRouter = Router();
 const controller = require("../controllers/controller.js");
-const { validator } = require("../controllers/validators/validateSignUp.js");
+const { validator, loginValidator } = require("../controllers/validators/validateSignUp.js");
 const passport = require("passport");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const dbPool = require("../model/pool");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs")
+const { validateMember } = require("../controllers/validators/validateMember.js");
 
 // const homeController = require("../controllers/homeController.js")
 
@@ -79,23 +80,19 @@ appRouter.use(
   });
 
 
-  const asyncHandler = require("express-async-handler");
-  const func = asyncHandler(async (req, res) => {
-    console.log('works')
-    res.render('index')
-    res.end()
-    
-})
+
+ 
 
 // appRouter.post("/sign-up", validator, controller.postSignUp)
 appRouter.get("/sign-up", controller.getSignUp)
 appRouter.post("/sign-up", validator, controller.postSignUp)
 appRouter.get("/log-in", controller.getLogIn)
-appRouter.post("/log-in", passport.authenticate("local", {successReditect: "/", failureRedirect: "/"}), controller.getHome);
+appRouter.post("/log-in", loginValidator, passport.authenticate("local", {successReditect: "/", failureRedirect: "/"}), controller.getHome);
 // appRouter.post("/log-in", func);
 appRouter.get("/log-out", controller.logOut);
 appRouter.get("/message", controller.getCreateMessage)
 appRouter.get("/member", controller.getMembership)
+appRouter.post("/beMember", validateMember, controller.setMembership)
 appRouter.get("/", controller.getHome)
 
 module.exports = appRouter

@@ -8,5 +8,13 @@
 <body>
 <h1>Become a member</h1>
 <%- include('nav') %> 
+<% if (locals.currentUser) {%>
+    <p class="riddleBody">Answer the riddle to join the club. </p>
+    <form action="/beMember" method="POST">
+        <label for="memberApp">The more there is, the less you see. What is it?</label>
+        <input name="memberApp" id="memberApp" type="text" >
+        <button type="submit">Submit</button>
+    </form>
+    <%}%>
 </body>
 </html>
