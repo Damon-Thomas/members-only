@@ -44,11 +44,11 @@ const validator = [
     return value === req.body.password;
   }).withMessage("Passwords do not Match"),
   body("adminPassword") 
-  .optional()
   .trim()
   .custom((value, { req }) => {
     return value === process.env.ADMINPASSWORD;
-  }).withMessage("Password incorrect"),
+  }).withMessage("Admin password incorrect")
+  .optional({ nullable: true, checkFalsy: true }),
  
   
 

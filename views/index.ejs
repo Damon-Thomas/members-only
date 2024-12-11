@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Home</h1>
+    <% if (locals.currentUser) { if (locals.currentUser.member) {%>
+    <h3>Member Account</h3>
+    <% }else{ %>
+    <h3>Non-Member Account</h3>
+    <% }} %> 
     <%- include('nav') %> 
     <% if (locals.currentUser) {%>
-        <h1>WELCOME BACK <%=  locals.currentUser.firstname + ' ' + locals.currentUser.lastname  %></h1>
-        <a href="/log-out">LOG OUT</a>
-        <%}%>
-    
-</body>
+    <h1>
+      WELCOME BACK <%= locals.currentUser.firstname + ' ' +
+      locals.currentUser.lastname %>
+    </h1>
+    <a href="/log-out">LOG OUT</a>
+    <%}%>
+
+    <%- include('message', {messages:messages}) %>
+  </body>
 </html>

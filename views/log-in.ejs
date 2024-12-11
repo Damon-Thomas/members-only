@@ -20,6 +20,11 @@
           <button>Log In</button>
         </form>
       <%}%>
+      <% if(failure) { %>
+        <p class="invalidLogin">Invalid Log-In</p>
+        <p class="invalidLogin">Please try again or <a href="/sign-up">sign-up</a></p>
+        
+      <%}%>
     
    
 </body>

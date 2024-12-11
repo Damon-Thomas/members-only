@@ -5,8 +5,9 @@ const bcrypt = require("bcryptjs")
 require('dotenv').config()
 
 const getHome = asyncHandler(async (req, res) => {
+    let messages = await query.getMessagesWithUsers()
     
-    res.render('index'
+    res.render('index', {messages: messages, errors: null}
 
     )
     
@@ -36,12 +37,31 @@ const getSignUp = asyncHandler(async (req, res) => {
 })
 
 const getLogIn = asyncHandler(async (req, res) => {
-    res.render('log-in')
+    
+    res.render('log-in', {failure: req.query.failure?true:null})
     
 })
 
 const getCreateMessage = asyncHandler(async (req, res) => {
-    res.render('createMessage')
+    res.render('createMessage', {errors: null})
+    
+})
+
+const postMessage = asyncHandler(async (req, res) => {
+    console.log(req.body, req.user)
+    const result = validationResult(req)
+   
+    if(result.isEmpty()) {
+        console.log('success')
+        query.saveMessage(req.body.mTitle, req.body.messager, req.user.id)
+        res.redirect('/')
+    }
+    else {
+       
+        console.log('validator erros', result)
+        res.render('createMessage', {errors: result.array()})
+        
+    }
     
 })
 
@@ -85,7 +105,7 @@ const setMembership = asyncHandler(async (req, res) => {
     let guess = query.capitalizeFirstLetter(req.body.memberApp)
     if (guess === process.env.RIDDLEANSWER) {
     query.setMember(req.user.id)
-    res.render('index')}
+    res.redirect('/')}
     
 })
 
@@ -97,5 +117,6 @@ module.exports ={
     getMembership,
     postSignUp,
     logOut,
-    setMembership
+    setMembership,
+    postMessage
 }

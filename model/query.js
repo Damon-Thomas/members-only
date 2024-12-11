@@ -1,20 +1,17 @@
 const pool = require("./pool")
-
+ 
 async function getMessages() {
     const {rows} = await pool.query('SELECT * FROM messages;')
-    console.log('Query all messages plain', rows)
     return rows;
 } 
 
 async function getMessagesWithUsers() {
     const {rows} = await pool.query('SELECT * FROM messages LEFT JOIN users ON messages.userid = users.id;')
-    console.log('Query all messages with users', rows)
     return rows;
 } 
 
 async function getUserByID(id) {
     const {rows} = await pool.query(`SELECT * FROM users WHERE id=${id};`)
-    console.log('Get user by id', rows)
     return rows;
 }
 
@@ -37,6 +34,11 @@ async function setMember(id) {
     
 }
 
+async function saveMessage(title, message, id){
+    
+    await pool.query(`INSERT INTO messages (title, timestamp, message, userID) VALUES ($1, $2, $3, $4)`, [title, new Date().toDateString(), message, id])
+}
+
 
 module.exports = {
     getMessages,
@@ -44,5 +46,6 @@ module.exports = {
     getUserByID,
     createUser,
     setMember,
-    capitalizeFirstLetter
+    capitalizeFirstLetter,
+    saveMessage
 }

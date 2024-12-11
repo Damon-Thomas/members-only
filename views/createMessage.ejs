@@ -7,6 +7,15 @@
 </head>
 <body>
 <h1>leave your message</h1>
-<%- include('nav') %> 
+<%- include('nav') %>
+<form action="/message" method="POST">
+    <label for="mTitle">Subject:</label>
+    <input type="text" name="mTitle" id="mTitle">
+    <%- include('formError', {errors: errors, selector: 'mTitle'}) %>
+    <label for="messager">Message:</label>
+    <textarea name="messager" id="messager" rows="4"></textarea>
+    <%- include('formError', {errors: errors, selector: 'messager'}) %>
+    <button type="submit">Send</button>
+</form>
 </body>
 </html>

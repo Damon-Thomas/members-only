@@ -10,6 +10,7 @@ const dbPool = require("../model/pool");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs")
 const { validateMember } = require("../controllers/validators/validateMember.js");
+const { validateMessage } = require("../controllers/validators/validateMessage.js");
 
 // const homeController = require("../controllers/homeController.js")
 
@@ -87,10 +88,11 @@ appRouter.use(
 appRouter.get("/sign-up", controller.getSignUp)
 appRouter.post("/sign-up", validator, controller.postSignUp)
 appRouter.get("/log-in", controller.getLogIn)
-appRouter.post("/log-in", loginValidator, passport.authenticate("local", {successReditect: "/", failureRedirect: "/"}), controller.getHome);
+appRouter.post("/log-in", loginValidator, passport.authenticate("local", {successReditect:"/", failureRedirect:"/log-in?failure=true"}), controller.getHome);
 // appRouter.post("/log-in", func);
 appRouter.get("/log-out", controller.logOut);
 appRouter.get("/message", controller.getCreateMessage)
+appRouter.post("/message", validateMessage, controller.postMessage)
 appRouter.get("/member", controller.getMembership)
 appRouter.post("/beMember", validateMember, controller.setMembership)
 appRouter.get("/", controller.getHome)
