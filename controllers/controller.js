@@ -6,7 +6,6 @@ require('dotenv').config()
 
 const getHome = asyncHandler(async (req, res) => {
     let messages = await query.getMessagesWithUsers()
-    
     res.render('index', {messages: messages, errors: null}
 
     )
@@ -109,6 +108,13 @@ const setMembership = asyncHandler(async (req, res) => {
     
 })
 
+const deleteMessage = asyncHandler(async (req, res) => {
+    console.log('route works param =', req.params)
+    query.deleteMessage(req.params.messageID)
+    res.redirect('/')
+    
+})
+
 module.exports ={
     getHome,
     getSignUp,
@@ -118,5 +124,6 @@ module.exports ={
     postSignUp,
     logOut,
     setMembership,
-    postMessage
+    postMessage,
+    deleteMessage
 }

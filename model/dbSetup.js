@@ -4,12 +4,12 @@ const { Client } = require("pg");
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  userid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   firstname VARCHAR ( 255 ), lastname VARCHAR ( 255 ), username VARCHAR ( 255 ), password VARCHAR ( 255 ), member BOOLEAN, admin BOOLEAN
 );
 CREATE TABLE IF NOT EXISTS messages (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  title VARCHAR ( 255 ), timestamp VARCHAR ( 255 ), message VARCHAR ( 255 ), userID INTEGER, FOREIGN KEY (userID) REFERENCES users(id)
+  messageid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  title VARCHAR ( 255 ), timestamp VARCHAR ( 255 ), message VARCHAR ( 255 ), userID INTEGER, FOREIGN KEY (userID) REFERENCES users(userid)
 );`
 
 async function main() {

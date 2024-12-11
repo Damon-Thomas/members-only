@@ -26,11 +26,14 @@ async function createUser(first, last, username, password, member, admin) {
     
 }
 
+async function deleteMessage(id) {
+    pool.query(`DELETE FROM messages WHERE messageid=${id}`)
+}
 
 
 async function setMember(id) {
     
-    await pool.query(`UPDATE users SET member=true WHERE id=${id};`)
+    await pool.query(`UPDATE users SET member=true WHERE userid=${id};`)
     
 }
 
@@ -47,5 +50,6 @@ module.exports = {
     createUser,
     setMember,
     capitalizeFirstLetter,
-    saveMessage
+    saveMessage,
+    deleteMessage
 }

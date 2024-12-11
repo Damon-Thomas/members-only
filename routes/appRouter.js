@@ -95,6 +95,7 @@ appRouter.get("/message", controller.getCreateMessage)
 appRouter.post("/message", validateMessage, controller.postMessage)
 appRouter.get("/member", controller.getMembership)
 appRouter.post("/beMember", validateMember, controller.setMembership)
+appRouter.post("/delete/:messageID", controller.deleteMessage)
 appRouter.get("/", controller.getHome)
 
 module.exports = appRouter
