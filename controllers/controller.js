@@ -6,6 +6,7 @@ require('dotenv').config()
 
 const getHome = asyncHandler(async (req, res) => {
     let messages = await query.getMessagesWithUsers()
+    console.log(messages)
     res.render('index', {messages: messages, errors: null}
 
     )
@@ -52,7 +53,7 @@ const postMessage = asyncHandler(async (req, res) => {
    
     if(result.isEmpty()) {
         console.log('success')
-        query.saveMessage(req.body.mTitle, req.body.messager, req.user.id)
+        query.saveMessage(req.body.mTitle, req.body.messager, req.user.userid)
         res.redirect('/')
     }
     else {
@@ -103,7 +104,7 @@ const setMembership = asyncHandler(async (req, res) => {
     console.log(req.body.memberApp)
     let guess = query.capitalizeFirstLetter(req.body.memberApp)
     if (guess === process.env.RIDDLEANSWER) {
-    query.setMember(req.user.id)
+    query.setMember(req.user.userid)
     res.redirect('/')}
     
 })

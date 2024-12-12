@@ -6,7 +6,7 @@ async function getMessages() {
 } 
 
 async function getMessagesWithUsers() {
-    const {rows} = await pool.query('SELECT * FROM messages LEFT JOIN users ON messages.userid = users.id;')
+    const {rows} = await pool.query('SELECT * FROM messages LEFT JOIN users ON messages.userid = users.userid;')
     return rows;
 } 
 

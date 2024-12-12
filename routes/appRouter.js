@@ -42,6 +42,7 @@ appRouter.use(
           [username]
         );
         const user = rows[0];
+        console.log('user', user)
   
         if (!user) {
           return done(null, false, { message: "Incorrect username" });
@@ -59,12 +60,12 @@ appRouter.use(
   );
   
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.userid);
   });
   
   passport.deserializeUser(async (id, done) => {
     try {
-      const { rows } = await dbPool.query("SELECT * FROM users WHERE id = $1", [
+      const { rows } = await dbPool.query("SELECT * FROM users WHERE userid = $1", [
         id,
       ]);
       const user = rows[0];

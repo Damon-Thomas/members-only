@@ -8,13 +8,14 @@
                 <p class="messageTime"><%= message.timestamp %></p>
                 <p class="messageAuthor"> <%= message.username %></p>
         <%}}%>
+        <% if(locals.currentUser) { %>
         <% if(locals.currentUser.admin) {%>
-            <form action="/delete/<%=message.id%>" method="POST">
+            <form action="/delete/<%=message.messageid%>" method="POST">
                 <button type="submit">Delete</button>
             </form>
             
           
-          <%}%> 
+          <%}}%> 
     
     <%})}%>
 </div>
