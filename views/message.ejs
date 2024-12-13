@@ -2,20 +2,24 @@
 <div class="messageContainer">
     <% if(messages) { %>
         <% messages.forEach((message) => { %>
-            <h6 class="messageTitle"><%= message.title%></h6>
-            <p class="messageBody"> <%= message.message %></p>
-             <%if (locals.currentUser) { if (locals.currentUser.member) {%>
-                <p class="messageTime"><%= message.timestamp %></p>
-                <p class="messageAuthor"> <%= message.username %></p>
-        <%}}%>
-        <% if(locals.currentUser) { %>
-        <% if(locals.currentUser.admin) {%>
-            <form action="/delete/<%=message.messageid%>" method="POST">
-                <button type="submit">Delete</button>
-            </form>
+            <div class="messageCard">
+                <h6 class="messageTitle"><%= message.title%></h6>
+                <p class="messageBody"> <%= message.message %></p>
+                 <%if (locals.currentUser) { if (locals.currentUser.member) {%>
+                    <div class="extras">
+                        <p class="messageTime"><%= message.timestamp %></p>
+                        <p class="messageAuthor"> <%= message.username %></p>
+                    </div>
+                        <%}}%>
+                        <% if(locals.currentUser) { %>
+                        <% if(locals.currentUser.admin) {%>
+                <form action="/delete/<%=message.messageid%>" method="POST">
+                    <button class="deleteButton" type="submit">Delete</button>
+                </form>
+            
             
           
           <%}}%> 
-    
+        </div>
     <%})}%>
 </div>

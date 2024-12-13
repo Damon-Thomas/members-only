@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/messageForm.css">
+    <title>Write Message</title>
 </head>
+
 <body>
-<h1>leave your message</h1>
-<%- include('nav') %>
-<form action="/message" method="POST">
-    <label for="mTitle">Subject:</label>
-    <input type="text" name="mTitle" id="mTitle">
-    <%- include('formError', {errors: errors, selector: 'mTitle'}) %>
-    <label for="messager">Message:</label>
-    <textarea name="messager" id="messager" rows="4"></textarea>
-    <%- include('formError', {errors: errors, selector: 'messager'}) %>
-    <button type="submit">Send</button>
-</form>
+    <div class="content">
+        <h1 class="messageTitle">Leave your Message</h1>
+        <%- include('nav') %>
+            <form class="messageFormContainer" action="/message" method="POST">
+                <div class="subjectForm">
+                    <label class="messageSubjectLabel" for="mTitle">Subject:</label>
+                    <input class="messageSubjectInput" type="text" name="mTitle" id="mTitle">
+                </div>
+                <%- include('formError', {errors: errors, selector: 'mTitle' }) %>
+                    <div class="messageForm">
+                        <label class="messageBodyLabel" for="messager">Message:</label>
+                        <textarea class="messageBodyInput" name="messager" id="messager" rows="4"></textarea>
+                    </div>
+                    <%- include('formError', {errors: errors, selector: 'messager' }) %>
+                        <button class="submitButton" type="submit">Send</button>
+            </form>
+    </div>
 </body>
+
 </html>
