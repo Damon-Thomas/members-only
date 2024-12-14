@@ -1,6 +1,8 @@
 #! /usr/bin/env node
 require('dotenv').config() 
 const { Client } = require("pg");
+// const { postgres } = require("postgres")
+// import postgres from 'postgres'
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS users (
@@ -12,10 +14,20 @@ CREATE TABLE IF NOT EXISTS messages (
   title VARCHAR ( 255 ), timestamp VARCHAR ( 255 ), message VARCHAR ( 255 ), userID INTEGER, FOREIGN KEY (userID) REFERENCES users(userid)
 );`
 
+
+
+// const sql = new Client({
+//   host: process.env.DATABASE_HOST,
+//   database: process.env.DATABASE_NAME,
+//   username: process.env.DATABASE_USER,
+//   password: process.env.DATABASE_PASSWORD,
+//   ssl: 'require',
+// })
+
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.DBLOCALURL,
+    connectionString: process.env.DBCONNECTION,
   });
   await client.connect();
   await client.query(SQL);

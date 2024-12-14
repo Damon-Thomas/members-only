@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const getHome = asyncHandler(async (req, res) => {
     let messages = await query.getMessagesWithUsers()
-    console.log(messages)
+    
     res.render('index', {messages: messages, errors: null}
 
     )
@@ -48,7 +48,7 @@ const getCreateMessage = asyncHandler(async (req, res) => {
 })
 
 const postMessage = asyncHandler(async (req, res) => {
-    console.log(req.body, req.user)
+ 
     const result = validationResult(req)
    
     if(result.isEmpty()) {
@@ -81,7 +81,7 @@ const postSignUp = asyncHandler(async (req, res) => {
                 res.render('sign-up', {errors: null})
             }
             else {
-                console.log('hashed', hashedPassword)
+                
                 let admin = (req.body.adminPassword == process.env.ADMINPASSWORD)
                 query.createUser(req.body.firstName, req.body.lastName, req.body.userName, hashedPassword, false, admin)
                 res.redirect('/')
@@ -90,22 +90,20 @@ const postSignUp = asyncHandler(async (req, res) => {
     }
     else {
        
-        console.log(result.array())
+       
         res.render('sign-up', {errors: result.array()})
-        // res.render('sign-up', {
-        //     errors: result.array()
-        // })
+       
     }
     
 })
 
 const setMembership = asyncHandler(async (req, res) => {
     const result = validationResult(req)
-    console.log('errors', result)
+    
     
     if(result.isEmpty()) {
-        console.log("success")
-        // query.setMember(req.user.userid)
+        
+        query.setMember(req.user.userid)
         res.redirect('/')}
     else {
         res.render('beMember', {errors: result.array()})
@@ -115,7 +113,7 @@ const setMembership = asyncHandler(async (req, res) => {
 })
 
 const deleteMessage = asyncHandler(async (req, res) => {
-    console.log('route works param =', req.params)
+    
     query.deleteMessage(req.params.messageID)
     res.redirect('/')
     
