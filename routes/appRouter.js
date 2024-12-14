@@ -89,7 +89,7 @@ appRouter.use(
 appRouter.get("/sign-up", controller.getSignUp)
 appRouter.post("/sign-up", validator, controller.postSignUp)
 appRouter.get("/log-in", controller.getLogIn)
-appRouter.post("/log-in", loginValidator, passport.authenticate("local", {successReditect:"/", failureRedirect:"/log-in?failure=true"}), controller.getHome);
+appRouter.post("/log-in", loginValidator, passport.authenticate("local", {failureRedirect:"/log-in?failure=true"}), controller.getHome);
 // appRouter.post("/log-in", func);
 appRouter.get("/log-out", controller.logOut);
 appRouter.get("/message", controller.getCreateMessage)

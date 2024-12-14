@@ -1,14 +1,14 @@
-<p class="error">
+<li class="error">
     <% if (errors) {%>
         
         <% errors.forEach(function(error) { %>
           
           <%if (error.path == selector) { %>
               
-              <li><%= error.msg %></li>
+              <%= error.msg %>
           <%}%>
           
         <% }); %>
       
     <% } %>
-</p> 
+ </li>

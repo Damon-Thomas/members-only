@@ -1,10 +1,11 @@
 const { body } = require("express-validator");
+require('dotenv').config()
 
 const validateMember = [
   body("memberApp")
     .trim()
-    .isLength({ min: 1, max: 20 })
-    .withMessage("Name required length 1-20")
+    .matches(process.env.RIDDLEANSWER)
+    .withMessage("Answer Incorrect")
     
 ]
 

@@ -52,13 +52,13 @@ const postMessage = asyncHandler(async (req, res) => {
     const result = validationResult(req)
    
     if(result.isEmpty()) {
-        console.log('success')
+       
         query.saveMessage(req.body.mTitle, req.body.messager, req.user.userid)
         res.redirect('/')
     }
     else {
        
-        console.log('validator erros', result)
+        
         res.render('createMessage', {errors: result.array()})
         
     }
@@ -66,14 +66,14 @@ const postMessage = asyncHandler(async (req, res) => {
 })
 
 const getMembership = asyncHandler(async (req, res) => {
-    console.log('yep', req.user)
-    res.render('beMember', )
+    
+    res.render('beMember', {errors: null})
     
 })
 
 const postSignUp = asyncHandler(async (req, res) => {
     const result = validationResult(req)
-    console.log(req.body)
+   
     if(result.isEmpty()) {
         bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
             if(err) {
@@ -90,7 +90,7 @@ const postSignUp = asyncHandler(async (req, res) => {
     }
     else {
        
-        console.log('validator erros', result)
+        console.log(result.array())
         res.render('sign-up', {errors: result.array()})
         // res.render('sign-up', {
         //     errors: result.array()
@@ -100,12 +100,17 @@ const postSignUp = asyncHandler(async (req, res) => {
 })
 
 const setMembership = asyncHandler(async (req, res) => {
-    console.log('ya', req.user)
-    console.log(req.body.memberApp)
-    let guess = query.capitalizeFirstLetter(req.body.memberApp)
-    if (guess === process.env.RIDDLEANSWER) {
-    query.setMember(req.user.userid)
-    res.redirect('/')}
+    const result = validationResult(req)
+    console.log('errors', result)
+    
+    if(result.isEmpty()) {
+        console.log("success")
+        // query.setMember(req.user.userid)
+        res.redirect('/')}
+    else {
+        res.render('beMember', {errors: result.array()})
+    }
+   
     
 })
 

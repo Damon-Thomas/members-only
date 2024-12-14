@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/messageForm.css">
+    <title>Log-In</title>
 </head>
 <body>
-    <%- include('nav') %> 
-    <% if (locals.user) {%>
-        <h1>WELCOME BACK <%= user.username %></h1>
-        <a href="/log-out">LOG OUT</a>
-      <% } else { %>
-        <h1>please log in</h1>
-        <form action="/log-in" method="POST">
-          <label for="username">Username</label>
-          <input id="username" name="username" placeholder="username" type="text" />
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" />
-          <button>Log In</button>
-        </form>
-      <%}%>
-      <% if(failure) { %>
-        <p class="invalidLogin">Invalid Log-In</p>
-        <p class="invalidLogin">Please try again or <a href="/sign-up">sign-up</a></p>
-        
-      <%}%>
+        <div class="content">
+          <h1 class="formTitle">Log In</h1>
+          <%- include('nav') %>
+          <form class="formContainer" action="/log-in" method="POST">
+            <div class="inputContainer">
+              <label class="normalLabel" for="username">Username</label>
+              <input class="smallInput" id="username" name="username" placeholder="username" type="text" />
+              <p class="error"></p>
+            </div>
+            <div class="inputContainer">
+              <label class="normalLabel" for="password">Password</label>
+              <input class="smallInput" id="password" name="password" type="password" placeholder="password" />
+            <p class="error"></p>
+            </div>
+            <button class="submitButton">Log In</button>
+          </form>
+               
+                <% if(failure) { %>
+          <p class="error">Invalid Log-In</p>
+          <p class="error">Please try again or <a href="/sign-up">sign-up</a></p>
+          
+                <%}%>
+        </div>
     
    
 </body>
